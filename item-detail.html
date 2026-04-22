@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل التراث - تراثي الرقمي</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="subpage">
+
+    <!-- Header Section -->
+    <header class="item-header" id="headerImage">
+        <a href="index.html" class="back-btn" id="backBtn"><i class="fa-solid fa-arrow-right"></i></a>
+        <div class="header-overlay"></div>
+        <div class="header-content">
+            <h1 class="item-main-title" id="itemTitle">جاري التحميل...</h1>
+            <p class="item-main-subtitle" id="itemSubtitle"></p>
+        </div>
+    </header>
+
+    <main class="content-section">
+        
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="action-btn share-btn">
+                <i class="fa-solid fa-share-nodes"></i> مشاركة
+            </button>
+            <button class="action-btn qr-btn">
+                <i class="fa-solid fa-qrcode"></i> رمز QR
+            </button>
+        </div>
+
+        <!-- Details Card -->
+        <div class="details-card">
+            
+            <!-- Section 1 (List) -->
+            <div class="detail-section" id="section1Container">
+                <h3 class="detail-title" id="section1Title"></h3>
+                <ul class="detail-list" id="section1List"></ul>
+            </div>
+
+            <!-- Section 2 (Text) -->
+            <div class="detail-section" id="section2Container">
+                <h3 class="detail-title" id="section2Title"></h3>
+                <p class="detail-text" id="section2Text"></p>
+            </div>
+
+            <!-- Section 3 (Text) -->
+            <div class="detail-section" id="section3Container">
+                <h3 class="detail-title" id="section3Title"></h3>
+                <p class="detail-text" id="section3Text"></p>
+            </div>
+
+            <!-- Section 4 (Numbered List) -->
+            <div class="detail-section" id="section4Container">
+                <h3 class="detail-title" id="section4Title"></h3>
+                <ol class="detail-list numbered" id="section4List"></ol>
+            </div>
+
+        </div>
+
+    </main>
+
+    <script src="data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const itemId = urlParams.get('id');
+
+            if (itemId && heritageData[itemId]) {
+                const data = heritageData[itemId];
+
+                // Set Header
+                document.getElementById('headerImage').style.backgroundImage = `url('${data.image}')`;
+                document.getElementById('itemTitle').innerText = data.title;
+                document.getElementById('itemSubtitle').innerText = data.subtitle;
+                document.getElementById('backBtn').href = data.categoryUrl;
+                document.title = `${data.title} - تراثي الرقمي`;
+
+                // Set Section 1
+                document.getElementById('section1Title').innerText = data.section1Title;
+                const s1List = document.getElementById('section1List');
+                data.section1Items.forEach(item => {
+                    const li = document.createElement('li');
+                    li.innerText = item;
+                    s1List.appendChild(li);
+                });
+
+                // Set Section 2
+                document.getElementById('section2Title').innerText = data.section2Title;
+                document.getElementById('section2Text').innerText = data.section2Text;
+
+                // Set Section 3
+                document.getElementById('section3Title').innerText = data.section3Title;
+                document.getElementById('section3Text').innerText = data.section3Text;
+
+                // Set Section 4
+                document.getElementById('section4Title').innerText = data.section4Title;
+                const s4List = document.getElementById('section4List');
+                data.section4Items.forEach(item => {
+                    const li = document.createElement('li');
+                    li.innerText = item;
+                    s4List.appendChild(li);
+                });
+
+            } else {
+                document.getElementById('itemTitle').innerText = "عنصر غير موجود";
+            }
+        });
+    </script>
+</body>
+</html>
